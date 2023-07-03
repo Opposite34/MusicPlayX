@@ -1,0 +1,10 @@
+#Python Related
+__pycache__/
+venv/
+
+#Session Related
+flask_session/
+secret.py
+
+#Music Files
+music/

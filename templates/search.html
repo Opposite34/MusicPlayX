@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}: Search</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+</head>
+<body>
+    <input name="query" hx-trigger="keyup changed delay:500ms, load" hx-get="query_music" hx-target="#results">
+
+    <li id="results">
+    </li>
+</body>
+</html>
