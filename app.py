@@ -17,7 +17,6 @@ def render_with_title(html_file, **context):
 
 @app.route("/")
 def home():
-    session["songs"] = pathwalk("music")
     return render_with_title('index.html')
 
 @app.route("/search")
@@ -26,6 +25,9 @@ def search():
 
 @app.route("/api/song_query")
 def query_song():
+    if session.get("songs") == None:
+        session["songs"] = pathwalk("music")
+
     query = request.args.get("q")
 
     songs = session.get("songs")
