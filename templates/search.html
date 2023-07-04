@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 <body>
-    <input name="query" hx-trigger="keyup changed delay:500ms, load" hx-get="query_music" hx-target="#results">
+    <input name="q" hx-trigger="keyup changed delay:500ms, load" hx-get="/api/song_query" hx-target="#results">
 
     <li id="results">
     </li>

@@ -7,5 +7,5 @@ def pathwalk(startpath):
          filelist.append((name, os.path.join(root, name)))
    return filelist
 
-def filter_search(query, music):
-   return list(filter(lambda tup: query in tup[0].lower(), music))
+def filter_search(query, songs):
+   return list(filter(lambda tup: query in tup[0].lower(), songs))

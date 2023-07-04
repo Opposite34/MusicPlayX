@@ -17,21 +17,21 @@ def render_with_title(html_file, **context):
 
 @app.route("/")
 def home():
-    session["music"] = pathwalk("music")
+    session["songs"] = pathwalk("music")
     return render_with_title('index.html')
 
 @app.route("/search")
 def search():
     return render_with_title('search.html')
 
-@app.route("/query_music")
-def query_music():
-    query = request.args.get("query")
+@app.route("/api/song_query")
+def query_song():
+    query = request.args.get("q")
 
-    music = session.get("music")
+    songs = session.get("songs")
 
-    music_list = filter_search(query, music)
-    return render_template('query_results.html', music_list=music_list)
+    filtered_songs = filter_search(query, songs)
+    return render_template('query_results.html', songs=filtered_songs)
 
 if __name__ == '__main__':
     app.run()
