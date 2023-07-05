@@ -8,8 +8,16 @@
 </head>
 <body>
     <input name="q" hx-trigger="keyup changed delay:500ms, load" hx-get="/api/song_query" hx-target="#results">
-
-    <li id="results">
-    </li>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody id="results"></div>
+    </table>
 </body>
 </html>

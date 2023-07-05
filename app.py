@@ -1,4 +1,4 @@
-from helper import pathwalk, filter_search
+from helper import pathwalk, get_metas, filter_search
 from secret import APP_SECRET_KEY
 
 from flask import Flask, render_template, request, session
@@ -26,10 +26,9 @@ def search():
 @app.route("/api/song_query")
 def query_song():
     if session.get("songs") == None:
-        session["songs"] = pathwalk("music")
+        session["songs"] = get_metas(pathwalk("music"))
 
     query = request.args.get("q")
-
     songs = session.get("songs")
 
     filtered_songs = filter_search(query, songs)
