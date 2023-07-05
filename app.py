@@ -34,5 +34,10 @@ def query_song():
     filtered_songs = filter_search(query, songs)
     return render_template('query_results.html', songs=filtered_songs)
 
+@app.route("/api/refresh_dir")
+def refresh_dir():
+    session["songs"] = get_metas(pathwalk("music"))
+    return ""
+
 if __name__ == '__main__':
     app.run()

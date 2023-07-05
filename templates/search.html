@@ -8,6 +8,7 @@
 </head>
 <body>
     <input name="q" hx-trigger="keyup changed delay:500ms, load" hx-get="/api/song_query" hx-target="#results">
+    <button hx-get="/api/refresh_dir" hx-swap="none">Refresh Directory</button>
     <table>
         <thead>
             <tr>
