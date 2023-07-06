@@ -1,7 +1,7 @@
 from helper import pathwalk, get_metas, filter_search
 from secret import APP_SECRET_KEY
 
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, Response
 from flask_session import Session
 
 app = Flask(__name__)
@@ -39,7 +39,11 @@ def query_song():
 @app.route("/api/refresh_dir")
 def refresh_dir():
     session["songs"] = get_metas(pathwalk("music"))
-    return ""
+
+    #force refresh as the song list will change
+    resp = Response()
+    resp.headers['HX-Refresh'] = 'true'
+    return resp
 
 if __name__ == '__main__':
     app.run()
