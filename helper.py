@@ -35,6 +35,10 @@ def try_get_meta(song, meta_type):
       #wrapping in list because of indexing in filter_search
       if meta_type == "year":
          return getyear_from_datetime(try_get_meta(song, "date"))
+      
+      #sometimes there's only albumartist listed
+      if meta_type == "artist":
+         return try_get_meta(song, "albumartist")
       return ""
    
 def get_metas(songs):
@@ -57,5 +61,5 @@ if __name__ == "__main__":
    song_metas = get_metas(song_files)
 
    #querying songs with "live" in the title, artist, or album
-   for live_song in filter_search("live", song_metas):
+   for live_song in filter_search("zyto", song_metas):
       print(live_song)
