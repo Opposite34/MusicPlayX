@@ -1,4 +1,5 @@
-from helper import pathwalk, get_metas, filter_search
+from src.get_music import pathwalk, get_metas
+from src.query import filter_search
 from secret import APP_SECRET_KEY
 
 from flask import Flask, render_template, request, session, Response
@@ -33,7 +34,7 @@ def query_song():
     query = request.args.get("q")
     songs = session.get("songs")
 
-    filtered_songs = filter_search(query, songs)
+    filtered_songs = filter_search(query, songs, ["title", "artist", "album"])
     return render_template('query_results.html', songs=filtered_songs)
 
 @app.route("/api/refresh_dir")
