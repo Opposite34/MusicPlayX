@@ -61,5 +61,5 @@ if __name__ == "__main__":
    song_metas = get_metas(song_files)
 
    #querying songs with "live" in the title, artist, or album
-   for live_song in filter_search("zyto", song_metas):
+   for live_song in filter_search("live", song_metas):
       print(live_song)
