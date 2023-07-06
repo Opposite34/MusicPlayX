@@ -53,7 +53,7 @@ def get_metas(songs):
          
 def filter_search(query, songs):
    return list(filter(
-      lambda song: (query.lower() in (f"{song.title} {song.artist} {song.album}").lower()), songs
+      lambda song: (query.strip().lower() in (f"{song.title} {song.artist} {song.album}").lower()), songs
    ))
 
 if __name__ == "__main__":
