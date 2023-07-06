@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}: Home</title>
-    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    {% with page="Home" %}
+        {% include "header.html" %}
+    {% endwith %}
 </head>
 <body>
-    
+    {% include 'nav.html' %}
 </body>
 </html>
