@@ -5,15 +5,16 @@
         {% include "header.html" %}
     {% endwith %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 </head>
 <body>
     {% include 'nav.html' %}
 
     <div class="noscroll" >
-        <input name="q" hx-trigger="keyup changed delay:500ms, load" hx-get="/api/song_query" hx-target="#results">
+        <input name="q" hx-trigger="keyup changed delay:500ms, load" hx-include="[name='field']" hx-get="/api/song_query" hx-target="#results">
         <button hx-get="/api/refresh_dir" hx-swap="none">Refresh Directory</button>
     </div>
-    <table>
+    <table class="sortable">
         <thead>
             <tr>
                 <th>Title</th>
