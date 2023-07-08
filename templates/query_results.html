@@ -1,12 +1,12 @@
 {% for song in songs %}
     <tr id="song_{{ song.id }}">
-    <td>{{ song.title }}</td>
-    <td>{{ song.artist }}</td>
-    <td>{{ song.album }}</td>
-    <td>
-        {% if song.year != -1 %}
-            {{ song.year }}
-        {% endif %}
-    </td>
+        <td>{{ song.title }}</td>
+        <td>{{ song.artist }}</td>
+        <td>{{ song.album }}</td>
+        <td>
+            {% if song.year != -1 %}
+                {{ song.year }}
+            {% endif %}
+        </td>
     </tr>
 {% endfor %}
