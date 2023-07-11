@@ -47,7 +47,7 @@ def parse_songtype(song):
     songtype = str(type(song)).split('.')[1].lower()
 
     #some filetype exceptions
-    if "wav" in songtype: #wave -> wav:
+    if "wave" in songtype: #wave -> wav:
         return "wav"
     if "ogg" in songtype or "vorbis" in songtype: #oggvorbis -> ogg
         return "ogg"
