@@ -83,3 +83,7 @@ if __name__ == "__main__":
     print("querying songs released in 2018")
     for song_2018 in filter_search("2018", song_metas, ["year"]):
         print(song_2018)
+
+    print("querying song in .wav format")
+    for song_wav in filter_search("wav", song_metas, ["type"]):
+        print(song_wav)
