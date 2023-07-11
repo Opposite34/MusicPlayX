@@ -7,6 +7,8 @@ song_metas = ["title", "artist", "album", "tracknumber", "year"]
 SongTup = namedtuple("SongTup", ["id", *song_metas, "path", "type"])
 
 def getyear_from_datetime(datetime_str):
+    if datetime_str == '' or datetime_str is None:
+        return -1
     try:
         if len(datetime_str)<=4: #assuming this string is just the year
             return int(datetime_str.strip())
