@@ -54,11 +54,10 @@ def get_song():
     songs = session.get("songs")
     
     songid = int(request.args.get("id"))
-    for song in songs:
-        if song.id == songid:
-            print(song.path)
-            return render_template('audio_player.html', song=song)
-    abort(404)
+    try:
+        return render_template('audio_player.html', song=songs[songid-1])
+    except IndexError:
+        abort(404)
 
 if __name__ == '__main__':
     app.run()
