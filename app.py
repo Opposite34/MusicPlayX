@@ -2,7 +2,7 @@ from src.get_music import pathwalk, get_metas
 from src.query import filter_search
 from secret import APP_SECRET_KEY
 
-from flask import Flask, render_template, request, session, Response
+from flask import Flask, render_template, request, session, Response, abort
 from flask_session import Session
 
 app = Flask(__name__)
@@ -29,7 +29,7 @@ def search():
 @app.route("/api/song_query")
 def query_song():
     if session.get("songs") == None:
-        session["songs"] = get_metas(pathwalk("music"))
+        session["songs"] = get_metas(pathwalk("static/music"))
 
     query = request.args.get("q")
     songs = session.get("songs")
@@ -39,12 +39,26 @@ def query_song():
 
 @app.route("/api/refresh_dir")
 def refresh_dir():
-    session["songs"] = get_metas(pathwalk("music"))
+    session["songs"] = get_metas(pathwalk("static/music"))
 
     #force refresh as the song list will change
     resp = Response()
     resp.headers['HX-Refresh'] = 'true'
     return resp
+
+@app.route("/api/get_song")
+def get_song():
+    if session.get("songs") == None:
+        session["songs"] = get_metas(pathwalk("static/music"))
+
+    songs = session.get("songs")
+    
+    songid = int(request.args.get("id"))
+    for song in songs:
+        if song.id == songid:
+            print(song.path)
+            return render_template('audio_player.html', song=song)
+    abort(404)
 
 if __name__ == '__main__':
     app.run()

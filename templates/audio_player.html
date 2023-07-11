@@ -1,0 +1,6 @@
+<span>
+    {{ song.artist }} - {{ song.title }}
+</span>
+<audio controls autoplay>
+    <source src={{ url_for('static', filename=song.path[7:]) }} type="audio/{{ song.type }}">
+</audio>

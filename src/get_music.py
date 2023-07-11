@@ -4,7 +4,7 @@ import mutagen
 import datetime
 
 song_metas = ["title", "artist", "album", "tracknumber", "year"]
-SongTup = namedtuple("SongTup", ["id", *song_metas, "path"])
+SongTup = namedtuple("SongTup", ["id", *song_metas, "path", "type"])
 
 def getyear_from_datetime(datetime_str):
     try:
@@ -40,19 +40,31 @@ def try_get_meta(song, meta_type):
         if meta_type == "artist":
             return try_get_meta(song, "albumartist")
         return ""
+    
+def parse_songtype(song):
+    songtype = str(type(song)).split('.')[1].lower()
+
+    #some filetype exceptions
+    if "ogg" in songtype or "vorbis" in songtype: #oggvorbis -> ogg
+        return "ogg"
+    if "id3" in songtype: #id3 -> mp3
+        return "mp3"
+    if "mp4" in songtype: #easymp4 -> mp4
+        return "mp4"
+    return songtype
 
 def get_metas(songs):
     songlists = []
     id = 1
     for _, filepath in songs:
         song = mutagen.File(filepath, easy=True)
-        if song is not None: 
-            songlists.append(SongTup(id, *[try_get_meta(song, meta_type) for meta_type in song_metas], filepath))
+        if song is not None:
+            songlists.append(SongTup(id, *[try_get_meta(song, meta_type) for meta_type in song_metas], filepath.replace("\\","/"), parse_songtype(song)))
             id += 1
     return songlists
 
 if __name__ == "__main__":
-    song_files = pathwalk("music/")
+    song_files = pathwalk("static/music")
     song_metas = get_metas(song_files)
 
     try:
