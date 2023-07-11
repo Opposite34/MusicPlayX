@@ -30,13 +30,16 @@ def pathwalk(startpath):
             filelist.append((name, os.path.join(root, name)))
     return filelist
 
-def try_get_meta(song, meta_type):
+def try_get_meta(song, meta_type, path=""):
     try:
         return song[meta_type][0]
     except KeyError:
         #wrapping in list because of indexing in filter_search
         if meta_type == "year":
             return getyear_from_datetime(try_get_meta(song, "date"))
+        
+        if meta_type == "title":
+            return path.split("/")[-1]
         
         #sometimes there's only albumartist listed
         if meta_type == "artist":
@@ -61,9 +64,10 @@ def get_metas(songs):
     songlists = []
     id = 1
     for _, filepath in songs:
+        filepath = filepath.replace("\\","/")
         song = mutagen.File(filepath, easy=True)
         if song is not None:
-            songlists.append(SongTup(id, *[try_get_meta(song, meta_type) for meta_type in song_metas], filepath.replace("\\","/"), parse_songtype(song)))
+            songlists.append(SongTup(id, *[try_get_meta(song, meta_type, filepath) for meta_type in song_metas], filepath, parse_songtype(song)))
             id += 1
     return songlists
 
