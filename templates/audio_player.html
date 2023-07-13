@@ -1,6 +1,6 @@
 <span>
     {{ song.artist }} - {{ song.title }}
 </span>
-<audio controls autoplay>
+<audio controls autoplay hx-get="/api/play/next" hx-trigger="ended" hx-target="#player">
     <source src={{ url_for('static', filename=song.path[7:]) }} type="audio/{{ song.type }}">
 </audio>

@@ -46,18 +46,29 @@ def refresh_dir():
     resp.headers['HX-Refresh'] = 'true'
     return resp
 
-@app.route("/api/get_song")
-def get_song():
+
+def send_player(songid):
     if session.get("songs") == None:
         session["songs"] = get_metas(pathwalk("static/music"))
-
     songs = session.get("songs")
-    
-    songid = int(request.args.get("id"))
     try:
-        return render_template('audio_player.html', song=songs[songid-1])
+        rendered = render_template('audio_player.html', song=songs[songid-1])
+        session["curr_songid"] = songid
+        return rendered
     except IndexError:
         abort(404)
+
+@app.route("/api/play")
+def play_song():
+    songid = int(request.args.get("id"))
+    return send_player(songid)
+
+@app.route("/api/play/next")
+def play_next_song():
+    if session.get("curr_songid") == None:
+        abort(404)
+    songid = session.get("curr_songid")
+    return send_player(songid+1)
 
 if __name__ == '__main__':
     app.run()

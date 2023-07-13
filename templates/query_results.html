@@ -1,5 +1,5 @@
 {% for song in songs %}
-    <tr hx-get="/api/get_song" id="song_{{ song.id }}" hx-vals='{"id": "{{ song.id }}"}' hx-target="#player">
+    <tr hx-get="/api/play" id="song_{{ song.id }}" hx-vals='{"id": "{{ song.id }}"}' hx-target="#player">
         <td>{{ song.title }}</td>
         <td>{{ song.artist }}</td>
         <td>{{ song.album }}</td>
