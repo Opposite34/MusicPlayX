@@ -7,4 +7,4 @@
  3. Run `pip install -r requirements.txt`
  4. Make `secret.py` in the main repo folder and add `APP_SECRET_KEY = "anything"` inside it (needed for Flask sessions)
  5. Make a directory inside `/static` called `music` and put your songs in there
- 6. Test the app with `flask --app app run`
+ 6. Test the app with `flask --app app run --host=0.0.0.0`
